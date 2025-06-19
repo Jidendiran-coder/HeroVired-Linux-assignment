@@ -327,8 +327,16 @@ sudo chage -d 0 mike
 📌 This forces them to change their password at first login.
 
 ### 📸 **Screenshots**
-3. `chage -l sarah` and `chage -l mike` – Confirm password expiry settings.
-4. Snippet of `/etc/login.defs` and `/etc/pam.d/common-password` edits.
+1. `chage -l sarah` and `chage -l mike` – Confirm password expiry settings.
+
+![image](https://github.com/user-attachments/assets/9a97e712-8bab-4a83-9ae2-665011e6943a)
+
+![image](https://github.com/user-attachments/assets/9d363d0f-465e-4372-97fc-fdc2a01795f3)
+
+
+2. Snippet of `/etc/login.defs` and `/etc/pam.d/common-password` edits.
 <Picture>
+
+![image](https://github.com/user-attachments/assets/1d38df0b-7b36-429d-8ed2-29dcd405eb68)
 
 ---
