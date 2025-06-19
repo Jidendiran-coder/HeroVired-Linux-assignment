@@ -491,10 +491,34 @@ cat /backups/nginx_backup_YYYY-MM-DD.log
 ### 📸 **Screenshots**
 
 1. Cron job entries (`crontab -l -u sarah`, `crontab -l -u mike`)
+
+![image](https://github.com/user-attachments/assets/64c7ec04-555d-44ac-a7b1-05d78e362fb2)
+
+![image](https://github.com/user-attachments/assets/cca763e4-3dd6-437e-8c9e-02b6dfb402c8)
+
 2. Files in `/backups/` showing naming convention
+
+![image](https://github.com/user-attachments/assets/79bf6495-24df-4438-9e50-fcef4da0db53)
+
 3. Log file contents showing successful backup and verification
+
+![image](https://github.com/user-attachments/assets/d8736653-9bfd-40b5-abf6-c9fb07b50a37)
+
+![image](https://github.com/user-attachments/assets/a82bf77d-d820-4a9d-b1c0-2a98281abb7a)
+
+
 4. Script files with code
+
+![image](https://github.com/user-attachments/assets/09797393-23b1-41cd-8ed1-dcac52345087)
+
+![image](https://github.com/user-attachments/assets/e59a8447-455c-449d-9ea4-dcdcc717d75a)
+
+
 5. Manual test outputs (optional but useful)
+
+![image](https://github.com/user-attachments/assets/3a1657ed-d94c-4937-8fc3-4f4e1fe67165)
+
+![image](https://github.com/user-attachments/assets/d80ae836-75a5-4b83-9529-8ff1bdcb8872)
 
 ---
 
