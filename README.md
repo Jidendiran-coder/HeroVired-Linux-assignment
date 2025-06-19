@@ -340,3 +340,161 @@ sudo chage -d 0 mike
 ![image](https://github.com/user-attachments/assets/1d38df0b-7b36-429d-8ed2-29dcd405eb68)
 
 ---
+
+
+Perfect, Jidendiran! Let's now proceed with **✅ Task 3: Backup Configuration for Web Servers**, which carries **20 marks** — the highest weight in the assignment.
+
+---
+
+## ✅ **Task 3: Backup Configuration for Web Servers**
+
+### 🎯 **Objective**
+
+Automate **weekly backups** (every Tuesday at 12:00 AM) for:
+
+* **Sarah's Apache server**
+* **Mike's Nginx server**
+
+Each should:
+
+* Back up config and document root
+* Save backups to `/backups/`
+* Use filename format: `apache_backup_YYYY-MM-DD.tar.gz` and `nginx_backup_YYYY-MM-DD.tar.gz`
+* Verify backup integrity by listing contents
+* Log each run
+
+---
+
+### 🔧 **Step-by-Step Implementation**
+
+---
+
+### ✅ 1. **Create Backup Directory**
+
+```bash
+sudo mkdir -p /backups
+sudo chmod 755 /backups
+```
+
+---
+
+### ✅ 2. **Create Backup Scripts**
+
+#### 📁 **Sarah’s Apache Backup Script**
+
+📍 File: `/home/sarah/apache_backup.sh`
+
+```bash
+#!/bin/bash
+
+DATE=$(date +%F)
+BACKUP_NAME="apache_backup_${DATE}.tar.gz"
+BACKUP_PATH="/backups/${BACKUP_NAME}"
+LOG_FILE="/backups/apache_backup_${DATE}.log"
+
+# Backup Apache config and HTML root
+tar -czvf "$BACKUP_PATH" /etc/httpd/ /var/www/html/ > "$LOG_FILE" 2>&1
+
+# Log verification
+echo "Backup file: $BACKUP_PATH" >> "$LOG_FILE"
+echo "Verifying backup contents:" >> "$LOG_FILE"
+tar -tzf "$BACKUP_PATH" >> "$LOG_FILE"
+
+echo "Backup completed for Apache on $(date)" >> "$LOG_FILE"
+```
+
+---
+
+#### 📁 **Mike’s Nginx Backup Script**
+
+📍 File: `/home/mike/nginx_backup.sh`
+
+```bash
+#!/bin/bash
+
+DATE=$(date +%F)
+BACKUP_NAME="nginx_backup_${DATE}.tar.gz"
+BACKUP_PATH="/backups/${BACKUP_NAME}"
+LOG_FILE="/backups/nginx_backup_${DATE}.log"
+
+# Backup Nginx config and HTML root
+tar -czvf "$BACKUP_PATH" /etc/nginx/ /usr/share/nginx/html/ > "$LOG_FILE" 2>&1
+
+# Log verification
+echo "Backup file: $BACKUP_PATH" >> "$LOG_FILE"
+echo "Verifying backup contents:" >> "$LOG_FILE"
+tar -tzf "$BACKUP_PATH" >> "$LOG_FILE"
+
+echo "Backup completed for Nginx on $(date)" >> "$LOG_FILE"
+```
+
+---
+
+### ✅ 3. **Set Permissions and Make Scripts Executable**
+
+```bash
+sudo chmod +x /home/sarah/apache_backup.sh
+sudo chmod +x /home/mike/nginx_backup.sh
+sudo chown sarah:sarah /home/sarah/apache_backup.sh
+sudo chown mike:mike /home/mike/nginx_backup.sh
+```
+
+---
+
+### ✅ 4. **Create Cron Jobs to Run Every Tuesday at 12:00 AM**
+
+Run:
+
+```bash
+sudo crontab -u sarah -e
+```
+
+➡️ Add this line:
+
+```
+0 0 * * 2 /home/sarah/apache_backup.sh
+```
+
+Then run:
+
+```bash
+sudo crontab -u mike -e
+```
+
+➡️ Add this line:
+
+```
+0 0 * * 2 /home/mike/nginx_backup.sh
+```
+
+---
+
+### ✅ 5. **Verification After First Run (or Manual Test)**
+
+You can manually run the scripts to test:
+
+```bash
+sudo -u sarah bash /home/sarah/apache_backup.sh
+sudo -u mike bash /home/mike/nginx_backup.sh
+```
+
+Then verify:
+
+```bash
+ls -lh /backups/
+cat /backups/apache_backup_YYYY-MM-DD.log
+cat /backups/nginx_backup_YYYY-MM-DD.log
+```
+
+---
+
+### 📸 **Screenshots**
+
+1. Cron job entries (`crontab -l -u sarah`, `crontab -l -u mike`)
+2. Files in `/backups/` showing naming convention
+3. Log file contents showing successful backup and verification
+4. Script files with code
+5. Manual test outputs (optional but useful)
+
+---
+
