@@ -209,3 +209,121 @@ To verify that the cron jobs
 ![image](https://github.com/user-attachments/assets/0e71d058-9e83-4a3e-a6b1-4f829e12dc3c)
 -------------------------------------------------------------------------------------------
 
+
+---
+
+## ✅ **Task 2: User Management and Access Control**
+
+### 🎯 **Objective**
+
+Create secure user accounts for Sarah and Mike with isolated directories and enforce a strong password policy.
+
+---
+
+### 🔧 **Implementation Steps**
+
+#### ✅ 1. **Create User Accounts with Secure Passwords**
+
+```bash
+sudo adduser sarah
+sudo passwd sarah  # Use a strong password
+
+sudo adduser mike
+sudo passwd mike  # Use a strong password
+```
+
+📌 **Tip**: Use a strong password (uppercase, lowercase, number, special character, at least 8 characters).
+
+---
+
+#### ✅ 2. **Create Isolated Workspace Directories**
+
+```bash
+# For Sarah
+sudo mkdir -p /home/sarah/workspace
+sudo chown sarah:sarah /home/sarah/workspace
+sudo chmod 700 /home/sarah/workspace
+
+# For Mike
+sudo mkdir -p /home/mike/workspace
+sudo chown mike:mike /home/mike/workspace
+sudo chmod 700 /home/mike/workspace
+```
+📌 `chmod 700` ensures only the user can access the folder (read/write/execute).
+
+### 📸 **Screenshots**
+
+1. `cat /etc/passwd | grep -E 'sarah|mike'` – Confirm user creation.
+2. `ls -ld /home/sarah/workspace` and `ls -ld /home/mike/workspace` – Confirm permissions.
+<Picture>
+
+
+---
+
+#### ✅ 3. **Implement Password Expiration & Complexity Policy**
+
+##### **Edit the Password Policy File: `/etc/login.defs`**
+
+```bash
+sudo nano /etc/login.defs
+```
+
+Make sure these lines are set:
+
+```bash
+PASS_MAX_DAYS   30
+PASS_MIN_DAYS   1
+PASS_WARN_AGE   7
+```
+
+📌 This means:
+
+* Password expires every **30 days**
+* Users can’t change it again within **1 day**
+* Warning appears **7 days** before expiry
+
+##### **Enforce Password Complexity (Ubuntu/Debian-based)**
+
+Install PAM password quality module:
+
+```bash
+sudo apt install libpam-pwquality
+```
+
+Edit PAM configuration:
+
+```bash
+sudo nano /etc/pam.d/common-password
+```
+
+Ensure the following line (or similar) is present and **uncommented**:
+
+```bash
+password requisite pam_pwquality.so retry=3 minlen=8 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1
+```
+
+📌 **Meaning**:
+
+* Minimum 8 characters
+* At least one uppercase (`ucredit=-1`)
+* At least one lowercase (`lcredit=-1`)
+* At least one digit (`dcredit=-1`)
+* At least one special character (`ocredit=-1`)
+
+---
+
+#### ✅ 4. **Force Password Expiry for Initial Login**
+
+```bash
+sudo chage -d 0 sarah
+sudo chage -d 0 mike
+```
+
+📌 This forces them to change their password at first login.
+
+### 📸 **Screenshots**
+3. `chage -l sarah` and `chage -l mike` – Confirm password expiry settings.
+4. Snippet of `/etc/login.defs` and `/etc/pam.d/common-password` edits.
+<Picture>
+
+---
