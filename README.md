@@ -254,8 +254,11 @@ sudo chmod 700 /home/mike/workspace
 ### 📸 **Screenshots**
 
 1. `cat /etc/passwd | grep -E 'sarah|mike'` – Confirm user creation.
+   
+![image](https://github.com/user-attachments/assets/e20c9031-6cb3-4875-aea0-08458c9400a3)
+
 2. `ls -ld /home/sarah/workspace` and `ls -ld /home/mike/workspace` – Confirm permissions.
-<Picture>
+
 
 
 ---
