@@ -259,6 +259,8 @@ sudo chmod 700 /home/mike/workspace
 
 2. `ls -ld /home/sarah/workspace` and `ls -ld /home/mike/workspace` – Confirm permissions.
 
+![image](https://github.com/user-attachments/assets/8fa4b1f8-b233-4090-b96e-9df5652dabdc)
+
 
 
 ---
